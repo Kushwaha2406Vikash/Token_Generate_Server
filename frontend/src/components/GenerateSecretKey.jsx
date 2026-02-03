@@ -41,7 +41,7 @@ function GenerateSecretKey() {
   setLoading(false);
 }
 
-
+  }
   const handleCopy = () => {
     navigator.clipboard.writeText(apiKey);
     setCopied(true);
