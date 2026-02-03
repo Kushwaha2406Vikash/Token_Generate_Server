@@ -15,28 +15,32 @@ function GenerateSecretKey() {
     setCopied(false);
     setLoading(true);
 
-    try {
-      const res = await fetch("http://localhost:8000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+  try {
+  const res = await api.post("/login", {
+    email,
+    password,
+  });
 
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.detail || "Login failed");
-      }
+  // Axios automatically parses JSON
+  const data = res.data;
 
-      const data = await res.json();
-      setApiKey(data.api_key);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  setApiKey(data.api_key);
+} catch (err) {
+  // Axios error handling
+  if (err.response) {
+    // Server responded with error status
+    setError(err.response.data?.detail || "Login failed");
+  } else if (err.request) {
+    // Request made but no response (network / CORS)
+    setError("Unable to connect to server");
+  } else {
+    // Something else
+    setError(err.message);
+  }
+} finally {
+  setLoading(false);
+}
+
 
   const handleCopy = () => {
     navigator.clipboard.writeText(apiKey);
