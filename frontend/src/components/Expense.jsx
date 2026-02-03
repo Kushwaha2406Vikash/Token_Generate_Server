@@ -4,7 +4,7 @@ function Expense() {
   return (
     <div className="flex justify-center ">
       <div className="px-4">
-        <p className="text-gray-800 text-base leading-7 max-w-3xl text-justify mx-auto font-semibold">
+        <p className="text-pink-600 text-base leading-7 max-w-3xl text-justify mx-auto font-semibold">
           The Expense Tracker MCP Server connects AI tools directly to a
           structured expense management system. This allows AI agents,
           assistants, and chatbots to add, update, delete, and summarize
